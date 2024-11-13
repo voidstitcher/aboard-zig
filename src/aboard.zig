@@ -1,5 +1,6 @@
 const std = @import("std");
 const sdl = @import("sdl.zig");
+const sleep = std.time.sleep;
 
 pub const screen_width = 512;
 pub const screen_height = 512;
@@ -54,6 +55,8 @@ fn sdlRun(game: *Game) void {
                     }
                 }
                 game.bullshit_pointer(game);
+                // limits framerate to ~60 per second
+                sleep(std.math.floor((1.0 / 60.0) * 1_000_000_000));
             }
             sdl.destroyWindow(game.window);
             sdl.quit();
