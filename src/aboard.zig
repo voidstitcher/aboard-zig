@@ -13,6 +13,7 @@ const Game = struct {
     window: ?*sdl.window,
     window_surface: *sdl.surface,
     bullshit_pointer: *const fn (*Game) void,
+    components: *Components,
 
     fn init(comptime window_name: [*:0]const u8) This {
         const window = sdl.createWindow(
@@ -30,6 +31,15 @@ const Game = struct {
             .bullshit_pointer = &bullshit,
         };
     }
+};
+
+const Components = struct {
+    position_component: []PositionComponent,
+};
+
+const PositionComponent = struct {
+    x: u32,
+    y: u32,
 };
 
 fn err(comptime fmt: []const u8) void {
